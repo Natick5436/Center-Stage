@@ -8,29 +8,23 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum_Drive;
 import org.firstinspires.ftc.teamcode.Robots.Claw14;
 import org.firstinspires.ftc.teamcode.Robots.Mark14;
+import org.firstinspires.ftc.teamcode.Robots.Mark15;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleOp",group="TeleOp")
 public class TeleOp extends LinearOpMode {
-    Mark14 robot;
+    Mark15 robot;
     PIDCoefficients pidc = new PIDCoefficients(0, 0, 0);
-    PIDFController armController = new PIDFController(pidc);
-    long armTime = System.currentTimeMillis();
-    long clawTime = System.currentTimeMillis();
-
-    boolean firstTime = true;
-
-    double upArm = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot = new Mark14(this);
+        robot = new Mark15(this);
         double drivePower = 0.6;
 
         robot.disableBrakes();
 
         while(!opModeIsActive()){
-            telemetry.addData("LowerArm", robot.lowerArm.getTargetPosition());
-            telemetry.addData("upperArm", robot.upperArm.getTargetPosition());
+            telemetry.addData("LowerArm", robot.leftSlide.getTargetPosition());
+            telemetry.addData("upperArm", robot.rightSlide.getTargetPosition());
             telemetry.addData("outtakeServo", robot.outtakeServo.getPosition());
             telemetry.addData("droneLauncher", robot.droneLauncher.getPosition());
             telemetry.update();
@@ -39,8 +33,8 @@ public class TeleOp extends LinearOpMode {
 
         waitForStart();
 
-        robot.lowerArm.setPower(1);
-        robot.upperArm.setPower(1);
+        robot.leftSlide.setPower(0.9);
+        robot.rightSlide.setPower(0.9);
 
 
         while (opModeIsActive()) {
@@ -89,25 +83,14 @@ public class TeleOp extends LinearOpMode {
 
             /**CONTROLLER 2**/
             if(gamepad2.dpad_up){
-                robot.lowerArm.setTargetPosition(robot.lowerArm.getTargetPosition() + 4);
-
-                upArm += 1.5;
-                robot.upperArm.setTargetPosition((int)upArm);
-//                robot.outtakeServo.setPosition(robot.outtakeServo.getPosition() +0.001);
+                robot.leftSlide.setTargetPosition(2100);
+                robot.rightSlide.setTargetPosition(2000);
             } else if (gamepad2.dpad_down) {
-                robot.lowerArm.setTargetPosition(robot.lowerArm.getTargetPosition() - 4);
+                robot.leftSlide.setTargetPosition(0);
+                robot.rightSlide.setTargetPosition(0);
 
-                upArm -= 1.5;
-                robot.upperArm.setTargetPosition((int)upArm);
-//                robot.outtakeServo.setPosition(robot.outtakeServo.getPosition() -0.001);
             }
 
-
-//            if(gamepad2.left_trigger > 0.1){
-//                robot.intakeArm.setTargetPosition(robot.intakeArm.getTargetPosition() + 3);
-//            } else if (gamepad2.right_trigger > 0.1) {
-//                robot.intakeArm.setTargetPosition(robot.intakeArm.getTargetPosition() - 3);
-//            }
 
 
             if(gamepad2.y){
@@ -143,9 +126,8 @@ public class TeleOp extends LinearOpMode {
 
 
 
-            telemetry.addData("LowerArm", robot.lowerArm.getTargetPosition());
-            telemetry.addData("upperArm", robot.upperArm.getTargetPosition());
-
+            telemetry.addData("leftSlide", robot.leftSlide.getTargetPosition());
+            telemetry.addData("rightSlide", robot.rightSlide.getTargetPosition());
 
             telemetry.addData("outtakeServo", robot.outtakeServo.getPosition());
             telemetry.addData("droneLauncher", robot.droneLauncher.getPosition());

@@ -19,10 +19,9 @@
  * SOFTWARE.
  */
 
-package org.firstinspires.ftc.teamcode.Testing;
+package org.firstinspires.ftc.teamcode.Official;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BeaconPipeline;
@@ -39,7 +38,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
  * 100% accurate) method of detecting the skystone when lined up with
  * the sample regions over the first 3 stones.
  */
-@Disabled
+@Autonomous(name="WebcamConfig", group = "TeleOp")
 public class WebcamTest extends LinearOpMode
 {
     OpenCvInternalCamera phoneCam;
@@ -82,29 +81,11 @@ public class WebcamTest extends LinearOpMode
             }
         });
 
-        Scalar lowerMagenta = new Scalar(80, 0, 130);
-        Scalar upperMagenta = new Scalar(255, 50, 255);
-
-        int lr = 80;
-        int lg= 0;
-        int lb = 130;
-
-        int ur = 255;
-        int ug= 50;
-        int ub = 255;
-
-
 
         while (opModeInInit())
         {
             NewBeaconDetector.BeaconColor beaconPipeline = pipeline.getBeaconColor();
             telemetry.addData("Analysis", beaconPipeline);
-            telemetry.addData("Magenta", pipeline.getMagentaPix());
-            telemetry.addData("Orange", pipeline.getOrangePix());
-            telemetry.addData("Green TEST", pipeline.getGreenPix());
-            telemetry.addData("Lower range", lowerMagenta);
-            telemetry.addData("upper range", upperMagenta);
-
 
             telemetry.update();
         }
@@ -112,66 +93,9 @@ public class WebcamTest extends LinearOpMode
         waitForStart();
 
         while(opModeIsActive()){
-            //LOWER LIMIT
-            if(gamepad1.y){
-                lr++;
-                pipeline.setLowerMagenta(new Scalar(lr, lg, lb));
-            }else if(gamepad1.a){
-                lr--;
-                pipeline.setLowerMagenta(new Scalar(lr, lg, lb));
-            }
-
-            if(gamepad1.x){
-                lg++;
-                pipeline.setLowerMagenta(new Scalar(lr, lg, lb));
-            }else if(gamepad1.b){
-                lg--;
-                pipeline.setLowerMagenta(new Scalar(lr, lg, lb));
-            }
-
-            if(gamepad1.dpad_up){
-                lb++;
-                pipeline.setLowerMagenta(new Scalar(lr, lg, lb));
-            }else if(gamepad1.dpad_down){
-                lb--;
-                pipeline.setLowerMagenta(new Scalar(lr, lg, lb));
-            }
-
-            //UPPER LIMIT
-            if(gamepad1.dpad_right){
-                ur++;
-                pipeline.setUpperMagenta(new Scalar(ur, ug, ub));
-            }else if(gamepad1.dpad_left){
-                ur--;
-                pipeline.setUpperMagenta(new Scalar(ur, ug, ub));
-            }
-
-            if(gamepad1.right_bumper){
-                ug++;
-                pipeline.setUpperMagenta(new Scalar(ur, ug, ub));
-            }else if(gamepad1.left_bumper){
-                ug--;
-                pipeline.setUpperMagenta(new Scalar(ur, ug, ub));
-            }
-
-            if(gamepad1.right_trigger > 0){
-                ub++;
-                pipeline.setUpperMagenta(new Scalar(ur, ug, ub));
-            }else if(gamepad1.left_trigger > 0){
-                ub--;
-                pipeline.setUpperMagenta(new Scalar(ur, ug, ub));
-            }
-
 
             NewBeaconDetector.BeaconColor beaconPipeline = pipeline.getBeaconColor();
             telemetry.addData("Analysis", beaconPipeline);
-            telemetry.addData("Magenta", pipeline.getMagentaPix());
-            telemetry.addData("Orange", pipeline.getOrangePix());
-            telemetry.addData("Green TEST", pipeline.getGreenPix());
-
-
-            telemetry.addData("Lower", pipeline.getLowerMagenta());
-            telemetry.addData("Upper", pipeline.getUpperMagenta());
 
             telemetry.update();
             //phoneCam.stopStreaming();
