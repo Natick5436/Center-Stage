@@ -16,7 +16,7 @@ public class BeaconPipeline extends OpenCvPipeline {
     @Override
     public Mat processFrame(Mat frame) {
         beaconColor = beaconDetector.detect(frame);
-        frame.setTo(new Scalar(255, 255, 255), beaconDetector.getMaskYellow());
+//        frame.setTo(new Scalar(255, 255, 255), beaconDetector.getMaskYellow());
         magentaPix = beaconDetector.getMagentaPix();
         orangePix = beaconDetector.getOrangePix();
         greenPix = beaconDetector.getGreenPix();

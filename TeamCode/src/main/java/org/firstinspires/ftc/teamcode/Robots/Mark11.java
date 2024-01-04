@@ -13,7 +13,7 @@ public class Mark11 extends Mecanum_Drive{
     public static final double driveWheelRadius = 0.05;
     public static final double driveLengthX = 0.336;
     public static final double driveLengthY = 0.39625;
-    public static final double driveMotorMaxRPM = 369.75;
+    public static final double driveMotorMaxRPM = 3697.75;
 
     //4
 
