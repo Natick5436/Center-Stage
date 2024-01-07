@@ -24,13 +24,16 @@ package org.firstinspires.ftc.teamcode.Official;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BarcodeScanner;
 import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BeaconPipeline;
+import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.ElementScanner;
 import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.NewBeaconDetector;
 import org.opencv.core.Scalar;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
+import org.w3c.dom.Element;
 
 
 /*
@@ -42,7 +45,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 public class WebcamTest extends LinearOpMode
 {
     OpenCvInternalCamera phoneCam;
-    BeaconPipeline pipeline;
+    ElementScanner pipeline;
 
     @Override
     public void runOpMode()
@@ -56,7 +59,7 @@ public class WebcamTest extends LinearOpMode
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        pipeline = new BeaconPipeline();
+        pipeline = new ElementScanner();
         phoneCam.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -84,7 +87,7 @@ public class WebcamTest extends LinearOpMode
 
         while (opModeInInit())
         {
-            NewBeaconDetector.BeaconColor beaconPipeline = pipeline.getBeaconColor();
+            ElementScanner.ElementPosition beaconPipeline = pipeline.getAnalysis();
             telemetry.addData("Analysis", beaconPipeline);
 
             telemetry.update();
@@ -94,7 +97,7 @@ public class WebcamTest extends LinearOpMode
 
         while(opModeIsActive()){
 
-            NewBeaconDetector.BeaconColor beaconPipeline = pipeline.getBeaconColor();
+            ElementScanner.ElementPosition beaconPipeline = pipeline.getAnalysis();
             telemetry.addData("Analysis", beaconPipeline);
 
             telemetry.update();

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Robots;
 
+import static java.lang.Thread.sleep;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -69,11 +71,32 @@ public class Mark15 extends Mecanum_Drive {
 
     }
 
-    public void simpleStrafe(double power){
+    public void autoStrafe(double power, int time) throws InterruptedException {
         lF.setPower(power);
         rF.setPower(power);
         lB.setPower(power);
         rB.setPower(power);
+
+        sleep(time);
+
+        lF.setPower(0);
+        rF.setPower(0);
+        lB.setPower(0);
+        rB.setPower(0);
+    }
+
+    public void autoTurn(double power, int time) throws InterruptedException {
+        lF.setPower(power);
+        rF.setPower(power);
+        lB.setPower(-power);
+        rB.setPower(-power);
+
+        sleep(time);
+
+        lF.setPower(0);
+        rF.setPower(0);
+        lB.setPower(0);
+        rB.setPower(0);
     }
 
 }
