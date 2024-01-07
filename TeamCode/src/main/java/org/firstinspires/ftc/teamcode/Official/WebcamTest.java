@@ -24,16 +24,11 @@ package org.firstinspires.ftc.teamcode.Official;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BarcodeScanner;
-import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BeaconPipeline;
-import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.ElementScanner;
-import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.NewBeaconDetector;
-import org.opencv.core.Scalar;
+import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.RedElementScanner;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
-import org.w3c.dom.Element;
 
 
 /*
@@ -45,7 +40,7 @@ import org.w3c.dom.Element;
 public class WebcamTest extends LinearOpMode
 {
     OpenCvInternalCamera phoneCam;
-    ElementScanner pipeline;
+    RedElementScanner pipeline;
 
     @Override
     public void runOpMode()
@@ -59,7 +54,7 @@ public class WebcamTest extends LinearOpMode
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        pipeline = new ElementScanner();
+        pipeline = new RedElementScanner();
         phoneCam.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -89,7 +84,7 @@ public class WebcamTest extends LinearOpMode
 
         while (opModeInInit())
         {
-            ElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
+            RedElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
             telemetry.addData("Analysis", elementPipeline);
 
             telemetry.update();
@@ -99,7 +94,7 @@ public class WebcamTest extends LinearOpMode
 
         while(opModeIsActive()){
 
-            ElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
+            RedElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
             telemetry.addData("Analysis", elementPipeline);
 
             telemetry.addData("LEFT PIXEL", pipeline.getAvg1());

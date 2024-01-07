@@ -8,7 +8,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-public class ElementScanner extends OpenCvPipeline {
+public class RedElementScanner extends OpenCvPipeline {
     /*
      * An enum to define the skystone position
      */
