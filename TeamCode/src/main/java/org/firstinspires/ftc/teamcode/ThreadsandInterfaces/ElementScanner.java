@@ -291,4 +291,16 @@ public class ElementScanner extends OpenCvPipeline {
     public ElementPosition getAnalysis() {
         return position;
     }
+
+    public int getAvg1() {
+        return avg1;
+    }
+
+    public int getAvg2() {
+        return avg2;
+    }
+
+    public int getAvg3() {
+        return avg3;
+    }
 }

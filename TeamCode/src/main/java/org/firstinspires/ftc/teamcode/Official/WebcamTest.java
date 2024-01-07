@@ -81,14 +81,16 @@ public class WebcamTest extends LinearOpMode
                 /*
                  * This will be called if the camera could not be opened
                  */
+                telemetry.addData("ERROR CODE:", errorCode);
+                telemetry.update();
             }
         });
 
 
         while (opModeInInit())
         {
-            ElementScanner.ElementPosition beaconPipeline = pipeline.getAnalysis();
-            telemetry.addData("Analysis", beaconPipeline);
+            ElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
+            telemetry.addData("Analysis", elementPipeline);
 
             telemetry.update();
         }
@@ -97,8 +99,12 @@ public class WebcamTest extends LinearOpMode
 
         while(opModeIsActive()){
 
-            ElementScanner.ElementPosition beaconPipeline = pipeline.getAnalysis();
-            telemetry.addData("Analysis", beaconPipeline);
+            ElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
+            telemetry.addData("Analysis", elementPipeline);
+
+            telemetry.addData("LEFT PIXEL", pipeline.getAvg1());
+            telemetry.addData("CENTER PIXEL", pipeline.getAvg2());
+            telemetry.addData("RIGHT PIXEL", pipeline.getAvg3());
 
             telemetry.update();
             //phoneCam.stopStreaming();
