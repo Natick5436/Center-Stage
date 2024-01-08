@@ -24,9 +24,9 @@ public class RedElementScanner extends OpenCvPipeline {
     static final Scalar BLUE = new Scalar(0, 0, 255);
     static final Scalar GREEN = new Scalar(0, 255, 0);
 
-    static final int T = 40;
-    static final int H = 70;
-    static final int S = 40;
+    static final int T = 10;
+    static final int H = 10;
+    static final int S = 70;
     static final int V = 70;
 
     static final Scalar LOW = new Scalar(H - T, S, V);
@@ -198,7 +198,7 @@ public class RedElementScanner extends OpenCvPipeline {
                 region2_pointA, // First point which defines the rectangle
                 region2_pointB, // Second point which defines the rectangle
                 BLUE, // The color the rectangle is drawn in
-                2); // Thickness of the rectangle lines
+                8); // Thickness of the rectangle lines
 
 
         /*
