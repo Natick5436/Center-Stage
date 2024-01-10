@@ -20,32 +20,37 @@ public class Mark15 extends Mecanum_Drive {
     public DcMotor intake;
     public String intakeInit = "intake";
 
-    public Servo outtakeServo;
-    public String outtakeServoInit = "outtakeServo";
-
     public Servo droneLauncher;
     public String droneLauncherInit = "droneLauncher";
 
     public Servo pushDown;
     public String pushDownInit = "pushDown";
 
-    public Servo doorServo;
-    public String doorServoInit = "DoorServo";
+    public Servo leftDoorServo;
+    public String leftDoorServoInit = "leftDoorServo";
+
+    public Servo rightDoorServo;
+    public String rightDoorServoInit = "rightDoorServo";
+
+    public DcMotor winch;
+    public String winchInit = "winch";
 
     public Mark15(LinearOpMode ln) {
         super(ln.hardwareMap.dcMotor.get("lF")/*lF*/, ln.hardwareMap.dcMotor.get("lB")/*lB*/, ln.hardwareMap.dcMotor.get("rF")/*rF*/, ln.hardwareMap.dcMotor.get("rB")/*rB*/, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftSlide = ln.hardwareMap.dcMotor.get(leftSlideInit);
         rightSlide = ln.hardwareMap.dcMotor.get(rightSlideInit);
+        winch = ln.hardwareMap.dcMotor.get(winchInit);
         intake = ln.hardwareMap.dcMotor.get(intakeInit);
 
-        outtakeServo = ln.hardwareMap.servo.get(outtakeServoInit);
         droneLauncher = ln.hardwareMap.servo.get(droneLauncherInit);
-        doorServo = ln.hardwareMap.servo.get(doorServoInit);
+        leftDoorServo = ln.hardwareMap.servo.get(leftDoorServoInit);
+        rightDoorServo = ln.hardwareMap.servo.get(rightDoorServoInit);
         pushDown = ln.hardwareMap.servo.get(pushDownInit);
 
         leftSlide.setPower(0);
         rightSlide.setPower(0);
         intake.setPower(0);
+        winch.setPower(0);
 
         leftSlide.setDirection(DcMotorSimple.Direction.FORWARD);
         rightSlide.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -66,12 +71,19 @@ public class Mark15 extends Mecanum_Drive {
         rightSlide.setTargetPosition(0);
         rightSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        rB.setDirection(DcMotorSimple.Direction.FORWARD);
+        lB.setDirection(DcMotorSimple.Direction.REVERSE);
+        rF.setDirection(DcMotorSimple.Direction.REVERSE);
+        lF.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
+
 
         switchReverseSide();
 
     }
 
-    public void autoForward(double power, int time) throws InterruptedException {
+    public void autoTurns(double power, int time) throws InterruptedException {
         lF.setPower(power);
         rF.setPower(-power);
         lB.setPower(-power);
@@ -86,6 +98,12 @@ public class Mark15 extends Mecanum_Drive {
     }
 
     public void autoStrafe(double power, int time) throws InterruptedException {
+        rB.setDirection(DcMotorSimple.Direction.FORWARD);
+        lB.setDirection(DcMotorSimple.Direction.FORWARD);
+        rF.setDirection(DcMotorSimple.Direction.FORWARD);
+        lF.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
         lF.setPower(power);
         rF.setPower(power);
         lB.setPower(power);
@@ -97,9 +115,15 @@ public class Mark15 extends Mecanum_Drive {
         rF.setPower(0);
         lB.setPower(0);
         rB.setPower(0);
+
+        rB.setDirection(DcMotorSimple.Direction.FORWARD);
+        lB.setDirection(DcMotorSimple.Direction.REVERSE);
+        rF.setDirection(DcMotorSimple.Direction.REVERSE);
+        lF.setDirection(DcMotorSimple.Direction.FORWARD);
+
     }
 
-    public void autoTurn(double power, int time) throws InterruptedException {
+    public void autoForward(double power, int time) throws InterruptedException {
         lF.setPower(power);
         rF.setPower(power);
         lB.setPower(-power);

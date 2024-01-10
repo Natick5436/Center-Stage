@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.Official;
 
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
-import com.acmerobotics.roadrunner.control.PIDFController;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum_Drive;
-import org.firstinspires.ftc.teamcode.Robots.Claw14;
-import org.firstinspires.ftc.teamcode.Robots.Mark14;
 import org.firstinspires.ftc.teamcode.Robots.Mark15;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleOp",group="TeleOp")
@@ -25,7 +22,6 @@ public class TeleOp extends LinearOpMode {
         while(!opModeIsActive()){
             telemetry.addData("LowerArm", robot.leftSlide.getTargetPosition());
             telemetry.addData("upperArm", robot.rightSlide.getTargetPosition());
-            telemetry.addData("outtakeServo", robot.outtakeServo.getPosition());
             telemetry.addData("droneLauncher", robot.droneLauncher.getPosition());
             telemetry.update();
         }
@@ -102,17 +98,21 @@ public class TeleOp extends LinearOpMode {
             }
 
 
-            if(gamepad2.dpad_left){
-                robot.outtakeServo.setPosition(0.88);
-            }if(gamepad2.dpad_right){
-                robot.outtakeServo.setPosition(0.52);
+            if(gamepad2.left_bumper){
+                robot.leftDoorServo.setPosition(0);
+            }
+            if(gamepad2.right_bumper){
+                robot.leftDoorServo.setPosition(robot.leftDoorServo.getPosition() +0.01);
             }
 
-            if(gamepad2.right_bumper){
-                robot.doorServo.setPosition(0.85);
-            }else if(gamepad2.left_bumper){
-                robot.doorServo.setPosition(0.95);
+            if(gamepad1.right_bumper){
+                robot.winch.setPower(0.4);
+            } else if (gamepad1.left_bumper) {
+                robot.winch.setPower(-0.4);
+            }else{
+                robot.winch.setPower(0);
             }
+
 
             if(gamepad2.left_trigger > 0 && gamepad2.right_trigger > 0){
                 robot.droneLauncher.setPosition(0.11);
@@ -128,11 +128,11 @@ public class TeleOp extends LinearOpMode {
 
             telemetry.addData("leftSlide", robot.leftSlide.getTargetPosition());
             telemetry.addData("rightSlide", robot.rightSlide.getTargetPosition());
-
-            telemetry.addData("outtakeServo", robot.outtakeServo.getPosition());
             telemetry.addData("droneLauncher", robot.droneLauncher.getPosition());
+            telemetry.addData("DoorServo", robot.leftDoorServo.getPosition());
 
-            telemetry.addData("DoorServo", robot.doorServo.getPosition());
+            telemetry.addData("LeftServo", robot.leftDoorServo.getPosition());
+            telemetry.addData("RightServo", robot.rightDoorServo.getPosition());
 
 
             telemetry.update();

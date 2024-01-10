@@ -25,6 +25,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BlueElementScanner;
 import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.RedElementScanner;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -42,7 +43,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 public class WebcamTest extends LinearOpMode
 {
     OpenCvWebcam phoneCam;
-    RedElementScanner pipeline;
+    BlueElementScanner pipeline;
     int err = -1;
 
     @Override
@@ -57,7 +58,7 @@ public class WebcamTest extends LinearOpMode
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new RedElementScanner();
+        pipeline = new BlueElementScanner();
         phoneCam.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -88,7 +89,7 @@ public class WebcamTest extends LinearOpMode
 
         while (opModeInInit())
         {
-            RedElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
+            BlueElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
             telemetry.addData("Analysis", elementPipeline);
 
             telemetry.update();
@@ -98,7 +99,7 @@ public class WebcamTest extends LinearOpMode
 
         while(opModeIsActive()){
 
-            RedElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
+            BlueElementScanner.ElementPosition elementPipeline = pipeline.getAnalysis();
             telemetry.addData("Analysis", elementPipeline);
 
             telemetry.addData("LEFT PIXEL", pipeline.getAvg1());

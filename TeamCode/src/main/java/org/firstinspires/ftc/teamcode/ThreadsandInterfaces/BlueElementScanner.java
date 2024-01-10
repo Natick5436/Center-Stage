@@ -24,21 +24,22 @@ public class BlueElementScanner extends OpenCvPipeline {
     static final Scalar BLUE = new Scalar(0, 0, 255);
     static final Scalar GREEN = new Scalar(0, 255, 0);
 
-    static final int T = 40;
-    static final int H = 70;
-    static final int S = 40;
-    static final int V = 70;
+    static final int T = 120;
+    static final int H = 215;
+    static final int S = 30;
+
+    static final int V = 30;
 
     static final Scalar LOW = new Scalar(H - T, S, V);
     static final Scalar HIGH = new Scalar(H + T, 255, 255);
     /*
      * The core values which define the location and size of the sample regions
      */
-    static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(30, 95);
+    static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0, 115);
     static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(140, 95);
     static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(243, 95);
-    static final int REGION_WIDTH = 40;
-    static final int REGION_HEIGHT = 40;
+    static final int REGION_WIDTH = 65;
+    static final int REGION_HEIGHT = 80;
 
     /*
      * Points which actually define the sample region rectangles, derived from above values
@@ -198,7 +199,7 @@ public class BlueElementScanner extends OpenCvPipeline {
                 region2_pointA, // First point which defines the rectangle
                 region2_pointB, // Second point which defines the rectangle
                 BLUE, // The color the rectangle is drawn in
-                2); // Thickness of the rectangle lines
+                8); // Thickness of the rectangle lines
 
 
         /*
@@ -282,6 +283,7 @@ public class BlueElementScanner extends OpenCvPipeline {
          * simply rendering the raw camera feed, because we called functions
          * to add some annotations to this buffer earlier up.
          */
+
         return filter;
     }
 
