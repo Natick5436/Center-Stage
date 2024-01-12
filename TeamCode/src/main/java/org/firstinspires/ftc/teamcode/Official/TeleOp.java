@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Official;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum_Drive;
 import org.firstinspires.ftc.teamcode.Robots.Mark15;
@@ -31,6 +32,8 @@ public class TeleOp extends LinearOpMode {
 
         robot.leftSlide.setPower(0.9);
         robot.rightSlide.setPower(0.9);
+
+        robot.winchSetter.setPosition(.45);
 
 
         while (opModeIsActive()) {
@@ -98,41 +101,62 @@ public class TeleOp extends LinearOpMode {
             }
 
 
-            if(gamepad2.left_bumper){
+           /* if(gamepad2.left_bumper){
                 robot.leftDoorServo.setPosition(0);
             }
             if(gamepad2.right_bumper){
                 robot.leftDoorServo.setPosition(robot.leftDoorServo.getPosition() +0.01);
             }
+            */
+            if(gamepad2.left_bumper){
+                robot.leftDoorServo.setPosition(.4);
+            } else
+            {
+                robot.leftDoorServo.setPosition(.75);
+            }
+            if(gamepad2.right_bumper){
+                robot.rightDoorServo.setPosition(.75);
+            } else
+            {
+                robot.rightDoorServo.setPosition(.4);
+            }
+
+
 
             if(gamepad1.right_bumper){
-                robot.winch.setPower(0.4);
+                robot.winch.setPower(1);
             } else if (gamepad1.left_bumper) {
-                robot.winch.setPower(-0.4);
+                robot.winch.setPower(-1);
             }else{
                 robot.winch.setPower(0);
             }
 
 
             if(gamepad2.left_trigger > 0 && gamepad2.right_trigger > 0){
-                robot.droneLauncher.setPosition(0.11);
+                robot.droneLauncher.setPosition(0.89);
             }
 
 
             if(gamepad1.b){
-                robot.pushDown.setPosition(0);
+                robot.pushDown.setPosition(-.2);
             }
-
+            if(gamepad1.x){
+                robot.winchSetter.setPosition(robot.winchSetter.getPosition() +0.005);
+            }
+            if (gamepad1.y)
+            {
+                robot.winchSetter.setPosition(robot.winchSetter.getPosition() -0.005);
+            }
 
 
 
             telemetry.addData("leftSlide", robot.leftSlide.getTargetPosition());
             telemetry.addData("rightSlide", robot.rightSlide.getTargetPosition());
             telemetry.addData("droneLauncher", robot.droneLauncher.getPosition());
-            telemetry.addData("DoorServo", robot.leftDoorServo.getPosition());
 
             telemetry.addData("LeftServo", robot.leftDoorServo.getPosition());
             telemetry.addData("RightServo", robot.rightDoorServo.getPosition());
+            telemetry.addData("winchsetter", robot.winchSetter.getPosition());
 
 
             telemetry.update();

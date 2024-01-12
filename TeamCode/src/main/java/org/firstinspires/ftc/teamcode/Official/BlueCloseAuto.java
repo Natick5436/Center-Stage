@@ -1,41 +1,127 @@
 package org.firstinspires.ftc.teamcode.Official;
 
+import android.icu.util.ValueIterator;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.Robots.Mark14;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.Robots.Mark15;
+import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BlueElementScanner;
+import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.RedElementScanner;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous(name="BlueCloseAuto",group="Autonomous")
 public class BlueCloseAuto extends LinearOpMode {
-    Mark14 robot;
+    Mark15 robot;
 
+    BlueElementScanner pipeline;
+    OpenCvWebcam phoneCam;
+    BlueElementScanner.ElementPosition elementPipeline;
+    BlueElementScanner.ElementPosition finalAnalysis;
     @Override
     public void runOpMode() throws InterruptedException {
-        robot = new Mark14(this);
+        robot = new Mark15(this);
 
-        while (!isStarted()) {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        phoneCam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        pipeline = new BlueElementScanner();
+        phoneCam.setPipeline(pipeline);
 
-            telemetry.update();
-            if (isStopRequested()) {
-                return;
+
+        phoneCam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
+            {
+                phoneCam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
             }
 
+            @Override
+            public void onError(int errorCode)
+            {
+                /*
+                 * This will be called if the camera could not be opened
+                 */
+                telemetry.addData("ERROR CODE:", errorCode);
+                telemetry.update();
+            }
+        });
+
+        while (opModeInInit())
+        {
+            elementPipeline = pipeline.getAnalysis();
+            telemetry.addData("Analysis", elementPipeline);
+            telemetry.update();
+
+            finalAnalysis = elementPipeline;
         }
 
-        robot.rB.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.lB.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rF.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.lF.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        robot.simpleStrafe(-0.4);
-        sleep(3500);
-        robot.simpleStrafe(0);
+        waitForStart();
 
-        robot.rB.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.lB.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rF.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.lF.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
+//        robot.autoTurns(0.3, 2000);
+//        robot.autoForward(0.3, 2000);
+//        robot.autoBackward(0.3, 2000);
+//        robot.autoStrafe(0.3,2000);
+
+        robot.leftSlide.setPower(0.9);
+        robot.rightSlide.setPower(0.9);
+
+        if(finalAnalysis == BlueElementScanner.ElementPosition.LEFT){
+            // Moves to position and sets up pixel placement
+            robot.autoForward(0.5, 1000);
+            robot.leftSlide.setTargetPosition(400);
+            robot.rightSlide.setTargetPosition(400);
+            robot.autoTurns(0.5, 780);
+            // Places the pixel
+            sleep(500);
+            robot.leftDoorServo.setPosition(.4);
+            sleep(1500);
+            robot.leftDoorServo.setPosition(.75);
+            // Moves to board
+            robot.autoStrafe(.7, 750);
+            robot.leftSlide.setTargetPosition(1000);
+            robot.rightSlide.setTargetPosition(1000);
+            robot.autoForward(-.5, 950);
+            robot.autoStrafe(-.7, 750);
+
+
+
+        } else if (finalAnalysis == BlueElementScanner.ElementPosition.CENTER) {
+            // Moves to position and sets up pixel placement
+            robot.autoForward(0.5, 1000);
+            robot.leftSlide.setTargetPosition(400);
+            robot.rightSlide.setTargetPosition(400);
+            robot.autoTurns(0.5, 1650);
+            // Places the pixel
+            sleep(500);
+            robot.leftDoorServo.setPosition(.4);
+            sleep(1500);
+            robot.leftDoorServo.setPosition(.75);
+            // Moves to board
+            robot.autoTurns(-0.5, 780);
+
+        }else{
+            // Moves to position and sets up pixel placement
+            robot.autoForward(0.5, 1000);
+            robot.leftSlide.setTargetPosition(400);
+            robot.rightSlide.setTargetPosition(400);
+            robot.autoTurns(-0.5, 780);
+            // Places the pixel
+            sleep(500);
+            robot.leftDoorServo.setPosition(.4);
+            sleep(1500);
+            robot.leftDoorServo.setPosition(.75);
+            // Moves to board
+            robot.autoTurns(-0.5, 1650);
+
+        }
 
 
         robot.stopDrive();

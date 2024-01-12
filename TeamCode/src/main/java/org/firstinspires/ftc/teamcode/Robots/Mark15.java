@@ -34,6 +34,8 @@ public class Mark15 extends Mecanum_Drive {
 
     public DcMotor winch;
     public String winchInit = "winch";
+    public Servo winchSetter;
+    public String winchSetterInit = "winchSetter";
 
     public Mark15(LinearOpMode ln) {
         super(ln.hardwareMap.dcMotor.get("lF")/*lF*/, ln.hardwareMap.dcMotor.get("lB")/*lB*/, ln.hardwareMap.dcMotor.get("rF")/*rF*/, ln.hardwareMap.dcMotor.get("rB")/*rB*/, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -46,6 +48,7 @@ public class Mark15 extends Mecanum_Drive {
         leftDoorServo = ln.hardwareMap.servo.get(leftDoorServoInit);
         rightDoorServo = ln.hardwareMap.servo.get(rightDoorServoInit);
         pushDown = ln.hardwareMap.servo.get(pushDownInit);
+        winchSetter = ln.hardwareMap.servo.get(winchSetterInit);
 
         leftSlide.setPower(0);
         rightSlide.setPower(0);
@@ -124,10 +127,10 @@ public class Mark15 extends Mecanum_Drive {
     }
 
     public void autoForward(double power, int time) throws InterruptedException {
-        lF.setPower(power);
-        rF.setPower(power);
-        lB.setPower(-power);
-        rB.setPower(-power);
+        lF.setPower(-power);
+        rF.setPower(-power);
+        lB.setPower(power);
+        rB.setPower(power);
 
         sleep(time);
 
@@ -136,5 +139,6 @@ public class Mark15 extends Mecanum_Drive {
         lB.setPower(0);
         rB.setPower(0);
     }
+
 
 }

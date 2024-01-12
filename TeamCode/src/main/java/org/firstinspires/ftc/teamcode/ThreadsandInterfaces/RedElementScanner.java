@@ -10,7 +10,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 public class RedElementScanner extends OpenCvPipeline {
     /*
-     * An enum to define the skystone position
+     * An enum to define the "skystone" position
      */
     public enum ElementPosition {
         LEFT,
@@ -36,10 +36,10 @@ public class RedElementScanner extends OpenCvPipeline {
      * The core values which define the location and size of the sample regions
      */
     static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0, 115);
-    static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(140, 95);
-    static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(243, 95);
-    static final int REGION_WIDTH = 65;
-    static final int REGION_HEIGHT = 80;
+    static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(180, 95);
+    static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(300, 95);
+    static final int REGION_WIDTH = 85;
+    static final int REGION_HEIGHT = 95;
 
     /*
      * Points which actually define the sample region rectangles, derived from above values
@@ -145,7 +145,7 @@ public class RedElementScanner extends OpenCvPipeline {
          *
          * We then take the average pixel value of 3 different regions on that Cb
          * channel, one positioned over each stone. The brightest of the 3 regions
-         * is where we assume the SkyStone to be, since the normal stones show up
+         * is where we assume the SkySt one to be, since the normal stones show up
          * extremely darkly.
          *
          * We also draw rectangles on the screen showing where the sample regions
