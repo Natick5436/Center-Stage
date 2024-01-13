@@ -121,8 +121,8 @@ public class Mark15 extends Mecanum_Drive {
 
         rB.setDirection(DcMotorSimple.Direction.FORWARD);
         lB.setDirection(DcMotorSimple.Direction.REVERSE);
-        rF.setDirection(DcMotorSimple.Direction.REVERSE);
-        lF.setDirection(DcMotorSimple.Direction.FORWARD);
+        rF.setDirection(DcMotorSimple.Direction.FORWARD);
+        lF.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 

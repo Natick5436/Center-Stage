@@ -33,7 +33,7 @@ public class TeleOp extends LinearOpMode {
         robot.leftSlide.setPower(0.9);
         robot.rightSlide.setPower(0.9);
 
-        robot.winchSetter.setPosition(.45);
+        robot.winchSetter.setPosition(.5);
 
 
         while (opModeIsActive()) {
@@ -133,7 +133,7 @@ public class TeleOp extends LinearOpMode {
 
 
             if(gamepad2.left_trigger > 0 && gamepad2.right_trigger > 0){
-                robot.droneLauncher.setPosition(0.89);
+                robot.droneLauncher.setPosition(0.70);
             }
 
 

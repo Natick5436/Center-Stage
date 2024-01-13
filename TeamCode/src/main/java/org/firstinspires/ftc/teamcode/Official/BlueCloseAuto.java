@@ -73,23 +73,43 @@ public class BlueCloseAuto extends LinearOpMode {
         robot.leftSlide.setPower(0.9);
         robot.rightSlide.setPower(0.9);
 
+        robot.pushDown.setPosition(.5);
+
         if(finalAnalysis == BlueElementScanner.ElementPosition.LEFT){
             // Moves to position and sets up pixel placement
             robot.autoForward(0.5, 1000);
             robot.leftSlide.setTargetPosition(400);
             robot.rightSlide.setTargetPosition(400);
-            robot.autoTurns(0.5, 780);
+            robot.autoTurns(0.5, 700);
             // Places the pixel
             sleep(500);
             robot.leftDoorServo.setPosition(.4);
             sleep(1500);
             robot.leftDoorServo.setPosition(.75);
             // Moves to board
-            robot.autoStrafe(.7, 750);
-            robot.leftSlide.setTargetPosition(1000);
-            robot.rightSlide.setTargetPosition(1000);
-            robot.autoForward(-.5, 950);
-            robot.autoStrafe(-.7, 750);
+            robot.autoForward(-.5, 80);
+            robot.autoStrafe(.7, 500);
+            robot.autoForward(-.5, 800);
+            robot.leftSlide.setTargetPosition(1400);
+            robot.rightSlide.setTargetPosition(1400);
+            robot.autoStrafe(-.7, 300);
+            robot.autoForward(-.3, 1000);
+            // Places the pixel
+            sleep(500);
+            robot.rightDoorServo.setPosition(.75);
+            robot.leftSlide.setTargetPosition(1500);
+            robot.rightSlide.setTargetPosition(1500);
+            sleep(1500);
+            robot.autoForward(.3, 800);
+            robot.rightDoorServo.setPosition(.4);
+            // moves to park
+            robot.leftSlide.setTargetPosition(0);
+            robot.rightSlide.setTargetPosition(0);
+            sleep(1000);
+            robot.autoStrafe(-.7, 800);
+            robot.autoForward(-.5, 1000);
+
+
 
 
 
