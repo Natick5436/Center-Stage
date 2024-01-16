@@ -76,25 +76,29 @@ public class BlueCloseAuto extends LinearOpMode {
         robot.pushDown.setPosition(.5);
 
         if(finalAnalysis == BlueElementScanner.ElementPosition.LEFT){
+
             // Moves to position and sets up pixel placement
             robot.autoForward(0.5, 1000);
             robot.leftSlide.setTargetPosition(400);
             robot.rightSlide.setTargetPosition(400);
             robot.autoTurns(0.5, 700);
-            // Places the pixel
+
+            // Places the pixel 1
             sleep(500);
             robot.leftDoorServo.setPosition(.4);
             sleep(1500);
             robot.leftDoorServo.setPosition(.75);
+
             // Moves to board
-            robot.autoForward(-.5, 80);
+            robot.autoForward(.5, 80);
             robot.autoStrafe(.7, 500);
             robot.autoForward(-.5, 800);
             robot.leftSlide.setTargetPosition(1400);
             robot.rightSlide.setTargetPosition(1400);
             robot.autoStrafe(-.7, 300);
             robot.autoForward(-.3, 1000);
-            // Places the pixel
+
+            // Places the pixel 2
             sleep(500);
             robot.rightDoorServo.setPosition(.75);
             robot.leftSlide.setTargetPosition(1500);
@@ -102,6 +106,7 @@ public class BlueCloseAuto extends LinearOpMode {
             sleep(1500);
             robot.autoForward(.3, 800);
             robot.rightDoorServo.setPosition(.4);
+
             // moves to park
             robot.leftSlide.setTargetPosition(0);
             robot.rightSlide.setTargetPosition(0);
@@ -114,32 +119,82 @@ public class BlueCloseAuto extends LinearOpMode {
 
 
         } else if (finalAnalysis == BlueElementScanner.ElementPosition.CENTER) {
+            // Untested
+
             // Moves to position and sets up pixel placement
             robot.autoForward(0.5, 1000);
             robot.leftSlide.setTargetPosition(400);
             robot.rightSlide.setTargetPosition(400);
-            robot.autoTurns(0.5, 1650);
+            robot.autoTurns(0.5, 1400);
+
             // Places the pixel
             sleep(500);
             robot.leftDoorServo.setPosition(.4);
             sleep(1500);
             robot.leftDoorServo.setPosition(.75);
+
             // Moves to board
-            robot.autoTurns(-0.5, 780);
+            robot.autoForward(-.5, 80);
+            robot.autoTurns(-0.5, 700);
+            robot.autoForward(-.5, 800);
+            robot.leftSlide.setTargetPosition(1400);
+            robot.rightSlide.setTargetPosition(1400);
+            robot.autoForward(-.3, 1000);
+
+            // Places the pixel 2
+            sleep(500);
+            robot.rightDoorServo.setPosition(.75);
+            robot.leftSlide.setTargetPosition(1500);
+            robot.rightSlide.setTargetPosition(1500);
+            sleep(1500);
+            robot.autoForward(.3, 800);
+            robot.rightDoorServo.setPosition(.4);
+
+            // moves to park
+            robot.leftSlide.setTargetPosition(0);
+            robot.rightSlide.setTargetPosition(0);
+            sleep(1000);
+            robot.autoStrafe(-.7, 800);
+            robot.autoForward(-.5, 1000);
 
         }else{
+            // Untested
+
             // Moves to position and sets up pixel placement
             robot.autoForward(0.5, 1000);
             robot.leftSlide.setTargetPosition(400);
             robot.rightSlide.setTargetPosition(400);
-            robot.autoTurns(-0.5, 780);
-            // Places the pixel
+            robot.autoTurns(-0.5, 700);
+
+            // Places the pixel 1
             sleep(500);
             robot.leftDoorServo.setPosition(.4);
             sleep(1500);
             robot.leftDoorServo.setPosition(.75);
+
             // Moves to board
-            robot.autoTurns(-0.5, 1650);
+            robot.autoForward(.5, 80);
+            robot.autoTurns(0.5, 1400);
+            robot.autoForward(-.5, 800);
+            robot.leftSlide.setTargetPosition(1400);
+            robot.rightSlide.setTargetPosition(1400);
+            robot.autoForward(-.3, 1000);
+
+            // Places the pixel 2
+            sleep(500);
+            robot.rightDoorServo.setPosition(.75);
+            robot.leftSlide.setTargetPosition(1500);
+            robot.rightSlide.setTargetPosition(1500);
+            sleep(1500);
+            robot.autoForward(.3, 800);
+            robot.rightDoorServo.setPosition(.4);
+
+            // moves to park
+            robot.leftSlide.setTargetPosition(0);
+            robot.rightSlide.setTargetPosition(0);
+            sleep(1000);
+            robot.autoStrafe(-.7, 800);
+            robot.autoForward(-.5, 1000);
 
         }
 
