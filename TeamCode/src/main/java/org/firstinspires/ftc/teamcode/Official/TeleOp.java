@@ -36,6 +36,7 @@ public class TeleOp extends LinearOpMode {
         robot.winchSetter.setPosition(.5);
 
 
+
         while (opModeIsActive()) {
 
 //            robot.intakeArm.setPower(-armController.update(robot.intakeArm.getCurrentPosition(), robot.intakeArm.getPower()));
@@ -68,10 +69,10 @@ public class TeleOp extends LinearOpMode {
                 robot.lF.setDirection(DcMotorSimple.Direction.FORWARD);
                 drivePower = 0.5;
             } else {
-                robot.rB.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.lB.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.rF.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.lF.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.rB.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.lB.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.rF.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.lF.setDirection(DcMotorSimple.Direction.REVERSE);
 
                 robot.lF.setPower(-drivePower * gamepad1.left_stick_y);
                 robot.lB.setPower(-drivePower * gamepad1.left_stick_y);
@@ -89,10 +90,23 @@ public class TeleOp extends LinearOpMode {
                 robot.rightSlide.setTargetPosition(0);
 
             }
+//
+//            if(gamepad2.dpad_up){
+//                robot.leftSlide.setTargetPosition(robot.leftSlide.getTargetPosition() + 1);
+//                robot.rightSlide.setTargetPosition(robot.rightSlide.getTargetPosition() + 1);
+//            } else if (gamepad2.dpad_down) {
+//                robot.leftSlide.setTargetPosition(robot.leftSlide.getTargetPosition() - 1);
+//                robot.rightSlide.setTargetPosition(robot.rightSlide.getTargetPosition() - 1);
+//
+//            }
 
 
 
-            if(gamepad2.y){
+
+
+
+
+                if(gamepad2.y){
                 robot.intake.setPower(0.9);
             } else if (gamepad2.x) {
                 robot.intake.setPower(-0.9);

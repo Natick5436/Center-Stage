@@ -70,11 +70,50 @@ public class BlueFarAuto extends LinearOpMode {
 //        robot.autoStrafe(0.3,2000);
 
         if(finalAnalysis == RedElementScanner.ElementPosition.LEFT){
-            robot.autoTurns(0.3, 2000);
+            // Moves to position and sets up pixel placement
+            robot.autoForward(0.5, 1000);
+            robot.leftSlide.setTargetPosition(400);
+            robot.rightSlide.setTargetPosition(400);
+            robot.autoTurns(0.5, 700);
+
+            // Places the pixel 1
+            sleep(500);
+            robot.leftDoorServo.setPosition(.4);
+            sleep(1500);
+            robot.leftDoorServo.setPosition(.75);
+
+            /*
+            we might want to add board placement but it will be risky
+            because if we make a mistake because we don't have odo
+            we might knock pixels off board
+             */
+
         } else if (finalAnalysis == RedElementScanner.ElementPosition.CENTER) {
-            robot.autoForward(0.3, 2000);
+            // Moves to position and sets up pixel placement
+            robot.autoForward(0.5, 1000);
+            robot.leftSlide.setTargetPosition(400);
+            robot.rightSlide.setTargetPosition(400);
+            robot.autoTurns(0.5, 1400);
+
+            // Places the pixel
+            sleep(500);
+            robot.leftDoorServo.setPosition(.4);
+            sleep(1500);
+            robot.leftDoorServo.setPosition(.75);
+
         }else{
-            robot.autoStrafe(0.3, 2000);
+            // Moves to position and sets up pixel placement
+            robot.autoForward(0.5, 1000);
+            robot.leftSlide.setTargetPosition(400);
+            robot.rightSlide.setTargetPosition(400);
+            robot.autoTurns(-0.5, 700);
+
+            // Places the pixel 1
+            sleep(500);
+            robot.leftDoorServo.setPosition(.4);
+            sleep(1500);
+            robot.leftDoorServo.setPosition(.75);
+
         }
 
         robot.stopDrive();
