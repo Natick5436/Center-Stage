@@ -138,9 +138,9 @@ public class BlueCloseAuto extends LinearOpMode {
             robot.autoForward(.3, 300);
             robot.autoTurns(-0.3, 1500);
             robot.autoForward(-.3, 1200);
-            robot.autoStrafe(-0.3,1500);
-            robot.leftSlide.setTargetPosition(1400);
-            robot.rightSlide.setTargetPosition(1400);
+            robot.autoStrafe(-0.3,1000);
+            robot.leftSlide.setTargetPosition(1600);
+            robot.rightSlide.setTargetPosition(1600);
             robot.autoForward(-.2, 1100);
             sleep(1000);
 
@@ -157,7 +157,7 @@ public class BlueCloseAuto extends LinearOpMode {
             robot.leftSlide.setTargetPosition(0);
             robot.rightSlide.setTargetPosition(0);
             sleep(1000);
-            robot.autoStrafe(-.5, 1000);
+            robot.autoStrafe(-.5, 900);
             robot.autoForward(-.3, 1200);
 
         }else{

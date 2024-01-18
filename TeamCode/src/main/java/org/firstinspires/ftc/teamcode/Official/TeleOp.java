@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoController;
 
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum_Drive;
 import org.firstinspires.ftc.teamcode.Robots.Mark15;
@@ -69,16 +70,16 @@ public class TeleOp extends LinearOpMode {
                 robot.lF.setDirection(DcMotorSimple.Direction.FORWARD);
                 drivePower = 0.5;
             } else {
-                robot.rB.setDirection(DcMotorSimple.Direction.REVERSE);
-                robot.lB.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.rF.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.lF.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.rB.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.lB.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.rF.setDirection(DcMotorSimple.Direction.REVERSE);
+                robot.lF.setDirection(DcMotorSimple.Direction.FORWARD);
 
-                robot.lF.setPower(-drivePower * gamepad1.left_stick_y);
-                robot.lB.setPower(-drivePower * gamepad1.left_stick_y);
-                robot.rF.setPower(-drivePower * gamepad1.right_stick_y);
-                robot.rB.setPower(-drivePower * gamepad1.right_stick_y);
-                robot.setStatus(Mecanum_Drive.Status.DRIVING);
+                robot.lF.setPower(drivePower * gamepad1.left_stick_y);
+                robot.lB.setPower(drivePower * gamepad1.left_stick_y);
+                robot.rF.setPower(drivePower * gamepad1.right_stick_y);
+                robot.rB.setPower(drivePower * gamepad1.right_stick_y);
+//                robot.setStatus(Mecanum_Drive.Status.DRIVING);
             }
 
             /**CONTROLLER 2**/
@@ -141,6 +142,7 @@ public class TeleOp extends LinearOpMode {
                 robot.winch.setPower(1);
             } else if (gamepad1.left_bumper) {
                 robot.winch.setPower(-1);
+                
             }else{
                 robot.winch.setPower(0);
             }

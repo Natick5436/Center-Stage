@@ -24,7 +24,7 @@ public class RedElementScanner extends OpenCvPipeline {
     static final Scalar BLUE = new Scalar(0, 0, 255);
     static final Scalar GREEN = new Scalar(0, 255, 0);
 
-    static final int T = 20;
+    static final int T = 50;
     static final int H = 10;
     static final int S = 70;
 
@@ -36,9 +36,9 @@ public class RedElementScanner extends OpenCvPipeline {
      * The core values which define the location and size of the sample regions
      */
     static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0, 115);
-    static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(180, 95);
-    static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(300, 95);
-    static final int REGION_WIDTH = 85;
+    static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(120, 95);
+    static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(243, 95);
+    static final int REGION_WIDTH = 75;
     static final int REGION_HEIGHT = 95;
 
     /*
@@ -234,14 +234,14 @@ public class RedElementScanner extends OpenCvPipeline {
              * Draw a solid rectangle on top of the chosen region.
              * Simply a visual aid. Serves no functional purpose.
              */
-            /*
+
             Imgproc.rectangle(
                     input, // Buffer to draw on
                     region1_pointA, // First point which defines the rectangle
                     region1_pointB, // Second point which defines the rectangle
                     GREEN, // The color the rectangle is drawn in
                     -1); // Negative thickness means solid fill
-             */
+
         } else if (max == avg2) // Was it from region 2?
         {
             position = ElementPosition.CENTER; // Record our analysis
@@ -250,14 +250,14 @@ public class RedElementScanner extends OpenCvPipeline {
              * Draw a solid rectangle on top of the chosen region.
              * Simply a visual aid. Serves no functional purpose.
              */
-            /*
+
             Imgproc.rectangle(
                     input, // Buffer to draw on
                     region2_pointA, // First point which defines the rectangle
                     region2_pointB, // Second point which defines the rectangle
                     GREEN, // The color the rectangle is drawn in
                     -1); // Negative thickness means solid fill
-             */
+
 
         } else if (max == avg3) // Was it from region 3?
         {
@@ -267,7 +267,7 @@ public class RedElementScanner extends OpenCvPipeline {
              * Draw a solid rectangle on top of the chosen region.
              * Simply a visual aid. Serves no functional purpose.
              */
-            /*
+
             Imgproc.rectangle(
                     input, // Buffer to draw on
                     region3_pointA, // First point which defines the rectangle
@@ -275,7 +275,7 @@ public class RedElementScanner extends OpenCvPipeline {
                     GREEN, // The color the rectangle is drawn in
                     -1); // Negative thickness means solid fill
 
-             */
+
         }
 
         /*

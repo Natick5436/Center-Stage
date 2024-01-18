@@ -62,6 +62,9 @@ public class RedCloseAuto extends LinearOpMode {
 
         waitForStart();
 
+        robot.leftSlide.setPower(0.9);
+        robot.rightSlide.setPower(0.9);
+
 
 
 //        robot.autoTurns(0.3, 2000);
@@ -109,10 +112,11 @@ public class RedCloseAuto extends LinearOpMode {
         } else if (finalAnalysis == RedElementScanner.ElementPosition.CENTER) {
 
             // Moves to position and sets up pixel placement
-            robot.autoForward(0.5, 1000);
+            robot.autoForward(0.31, 2200);
             robot.leftSlide.setTargetPosition(400);
             robot.rightSlide.setTargetPosition(400);
-            robot.autoTurns(0.5, 1400);
+            sleep(500);
+            robot.autoTurns(0.4, 2100);
 
             // Places the pixel 1
             sleep(500);
@@ -121,18 +125,18 @@ public class RedCloseAuto extends LinearOpMode {
             robot.leftDoorServo.setPosition(.75);
 
             // Moves to board
-            robot.autoForward(-.5, 80);
-            robot.autoTurns(0.5, 700);
-            robot.autoForward(-.5, 800);
-            robot.leftSlide.setTargetPosition(1400);
-            robot.rightSlide.setTargetPosition(1400);
-            robot.autoForward(-.3, 1000);
+            robot.autoForward(.3, 300);
+            robot.autoTurns(0.4, 1100);
+            robot.autoForward(-.3, 2800);
+            robot.autoStrafe(-0.3,1000);
+            robot.leftSlide.setTargetPosition(2000);
+            robot.rightSlide.setTargetPosition(2000);
+            robot.autoForward(-.2, 1100);
+            sleep(1000);
 
             // Places the pixel 2
             sleep(500);
             robot.rightDoorServo.setPosition(.75);
-            robot.leftSlide.setTargetPosition(1500);
-            robot.rightSlide.setTargetPosition(1500);
             sleep(1500);
             robot.autoForward(.3, 800);
             robot.rightDoorServo.setPosition(.4);
@@ -142,7 +146,9 @@ public class RedCloseAuto extends LinearOpMode {
             robot.rightSlide.setTargetPosition(0);
             sleep(1000);
             robot.autoStrafe(.7, 800);
-            robot.autoForward(-.5, 1000);
+            robot.autoForward(-.4, 850);
+
+        }else{
 
             // Moves to position and sets up pixel placement
             robot.autoForward(0.5, 1000);
@@ -179,7 +185,6 @@ public class RedCloseAuto extends LinearOpMode {
             sleep(1000);
             robot.autoStrafe(-.7, 800);
             robot.autoForward(-.5, 1000);
-
         }
 
         robot.stopDrive();
