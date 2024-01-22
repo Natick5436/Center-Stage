@@ -24,7 +24,6 @@ public class TeleOp extends LinearOpMode {
         while(!opModeIsActive()){
             telemetry.addData("LowerArm", robot.leftSlide.getTargetPosition());
             telemetry.addData("upperArm", robot.rightSlide.getTargetPosition());
-            telemetry.addData("droneLauncher", robot.droneLauncher.getPosition());
             telemetry.update();
         }
 
@@ -142,14 +141,16 @@ public class TeleOp extends LinearOpMode {
                 robot.winch.setPower(1);
             } else if (gamepad1.left_bumper) {
                 robot.winch.setPower(-1);
-                
+
             }else{
                 robot.winch.setPower(0);
             }
 
 
             if(gamepad2.left_trigger > 0 && gamepad2.right_trigger > 0){
-                robot.droneLauncher.setPosition(0.70);
+                robot.droneLauncher.setPower(-0.2);
+                sleep(1000);
+                robot.droneLauncher.setPower(0);
             }
 
 
@@ -168,7 +169,6 @@ public class TeleOp extends LinearOpMode {
 
             telemetry.addData("leftSlide", robot.leftSlide.getTargetPosition());
             telemetry.addData("rightSlide", robot.rightSlide.getTargetPosition());
-            telemetry.addData("droneLauncher", robot.droneLauncher.getPosition());
 
             telemetry.addData("LeftServo", robot.leftDoorServo.getPosition());
             telemetry.addData("RightServo", robot.rightDoorServo.getPosition());

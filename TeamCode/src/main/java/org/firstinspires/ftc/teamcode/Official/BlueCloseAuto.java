@@ -74,6 +74,16 @@ public class BlueCloseAuto extends LinearOpMode {
         robot.rightSlide.setPower(0.9);
 
         robot.pushDown.setPosition(.5);
+        sleep(2000);
+
+        for(int i=0; i<400000;i++) {
+            elementPipeline = pipeline.getAnalysis();
+            telemetry.addData("Analysis", elementPipeline);
+            telemetry.addData("I", i);
+            telemetry.update();
+
+            finalAnalysis = elementPipeline;
+        }
 
         if(finalAnalysis == BlueElementScanner.ElementPosition.LEFT){
 
@@ -141,7 +151,7 @@ public class BlueCloseAuto extends LinearOpMode {
             robot.autoStrafe(-0.3,1000);
             robot.leftSlide.setTargetPosition(1600);
             robot.rightSlide.setTargetPosition(1600);
-            robot.autoForward(-.2, 1100);
+            robot.autoForward(-.2, 1600);
             sleep(1000);
 
             // Places the pixel 2
@@ -174,7 +184,7 @@ public class BlueCloseAuto extends LinearOpMode {
             robot.leftDoorServo.setPosition(.75);
 
             //to board
-            robot.autoTurns(-0.4, 2000);
+            robot.autoTurns(-0.4, 1700);
             robot.autoForward(-0.3, 2200);
             sleep(1500);
 

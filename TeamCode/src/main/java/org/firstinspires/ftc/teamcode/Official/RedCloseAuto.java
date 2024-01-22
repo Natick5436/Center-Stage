@@ -65,6 +65,18 @@ public class RedCloseAuto extends LinearOpMode {
         robot.leftSlide.setPower(0.9);
         robot.rightSlide.setPower(0.9);
 
+        robot.pushDown.setPosition(.5);
+        sleep(2000);
+
+        for(int i=0; i<400000;i++) {
+            elementPipeline = pipeline.getAnalysis();
+            telemetry.addData("Analysis", elementPipeline);
+            telemetry.addData("I", i);
+            telemetry.update();
+
+            finalAnalysis = elementPipeline;
+        }
+
 
 
 //        robot.autoTurns(0.3, 2000);
@@ -76,7 +88,8 @@ public class RedCloseAuto extends LinearOpMode {
             robot.autoForward(0.5, 1000);
             robot.leftSlide.setTargetPosition(400);
             robot.rightSlide.setTargetPosition(400);
-            robot.autoTurns(-0.5, 700);
+            robot.autoTurns(0.5, 700);
+
 
             // Places the pixel 1
             sleep(500);
@@ -112,7 +125,7 @@ public class RedCloseAuto extends LinearOpMode {
         } else if (finalAnalysis == RedElementScanner.ElementPosition.CENTER) {
 
             // Moves to position and sets up pixel placement
-            robot.autoForward(0.31, 2200);
+            robot.autoForward(0.31, 15+00);
             robot.leftSlide.setTargetPosition(400);
             robot.rightSlide.setTargetPosition(400);
             sleep(500);
@@ -164,7 +177,7 @@ public class RedCloseAuto extends LinearOpMode {
 
             // Moves to board
             robot.autoForward(.5, 80);
-            robot.autoTurns(0.5, 1400);
+            robot.autoTurns(-0.5, 1400);
             robot.autoForward(-.5, 800);
             robot.leftSlide.setTargetPosition(1400);
             robot.rightSlide.setTargetPosition(1400);

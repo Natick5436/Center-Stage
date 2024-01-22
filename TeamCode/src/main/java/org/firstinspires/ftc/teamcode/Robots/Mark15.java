@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Robots;
 import static java.lang.Thread.sleep;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -20,7 +21,7 @@ public class Mark15 extends Mecanum_Drive {
     public DcMotor intake;
     public String intakeInit = "intake";
 
-    public Servo droneLauncher;
+    public CRServo droneLauncher;
     public String droneLauncherInit = "droneLauncher";
 
     public Servo pushDown;
@@ -44,7 +45,7 @@ public class Mark15 extends Mecanum_Drive {
         winch = ln.hardwareMap.dcMotor.get(winchInit);
         intake = ln.hardwareMap.dcMotor.get(intakeInit);
 
-        droneLauncher = ln.hardwareMap.servo.get(droneLauncherInit);
+        droneLauncher = ln.hardwareMap.crservo.get(droneLauncherInit);
         leftDoorServo = ln.hardwareMap.servo.get(leftDoorServoInit);
         rightDoorServo = ln.hardwareMap.servo.get(rightDoorServoInit);
         pushDown = ln.hardwareMap.servo.get(pushDownInit);
@@ -79,6 +80,7 @@ public class Mark15 extends Mecanum_Drive {
         rF.setDirection(DcMotorSimple.Direction.REVERSE);
         lF.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        droneLauncher.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 

@@ -1,34 +1,34 @@
 package org.firstinspires.ftc.teamcode.Official;
 
+import android.icu.util.ValueIterator;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Robots.Mark14;
 import org.firstinspires.ftc.teamcode.Robots.Mark15;
+import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BlueElementScanner;
 import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.RedElementScanner;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Disabled
+@Autonomous(name="BlueFarAuto",group="Autonomous")
 public class BlueFarAuto extends LinearOpMode {
     Mark15 robot;
 
-    RedElementScanner pipeline;
+    BlueElementScanner pipeline;
     OpenCvWebcam phoneCam;
-    RedElementScanner.ElementPosition elementPipeline;
-    RedElementScanner.ElementPosition finalAnalysis;
+    BlueElementScanner.ElementPosition elementPipeline;
+    BlueElementScanner.ElementPosition finalAnalysis;
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new Mark15(this);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new RedElementScanner();
+        pipeline = new BlueElementScanner();
         phoneCam.setPipeline(pipeline);
 
 
@@ -67,9 +67,26 @@ public class BlueFarAuto extends LinearOpMode {
 
 //        robot.autoTurns(0.3, 2000);
 //        robot.autoForward(0.3, 2000);
+//        robot.autoBackward(0.3, 2000);
 //        robot.autoStrafe(0.3,2000);
 
-        if(finalAnalysis == RedElementScanner.ElementPosition.LEFT){
+        robot.leftSlide.setPower(0.9);
+        robot.rightSlide.setPower(0.9);
+
+        robot.pushDown.setPosition(.5);
+        sleep(2000);
+
+        for(int i=0; i<400000;i++) {
+            elementPipeline = pipeline.getAnalysis();
+            telemetry.addData("Analysis", elementPipeline);
+            telemetry.addData("I", i);
+            telemetry.update();
+
+            finalAnalysis = elementPipeline;
+        }
+
+        if(finalAnalysis == BlueElementScanner.ElementPosition.LEFT){
+
             // Moves to position and sets up pixel placement
             robot.autoForward(0.5, 1000);
             robot.leftSlide.setTargetPosition(400);
@@ -82,31 +99,16 @@ public class BlueFarAuto extends LinearOpMode {
             sleep(1500);
             robot.leftDoorServo.setPosition(.75);
 
-            /*
-            we might want to add board placement but it will be risky
-            because if we make a mistake because we don't have odo
-            we might knock pixels off board
-             */
 
-        } else if (finalAnalysis == RedElementScanner.ElementPosition.CENTER) {
+        } else if (finalAnalysis == BlueElementScanner.ElementPosition.CENTER) {
+            // Untested
+
             // Moves to position and sets up pixel placement
-            robot.autoForward(0.5, 1000);
+            robot.autoForward(0.3, 1700);
             robot.leftSlide.setTargetPosition(400);
             robot.rightSlide.setTargetPosition(400);
-            robot.autoTurns(0.5, 1400);
-
-            // Places the pixel
             sleep(500);
-            robot.leftDoorServo.setPosition(.4);
-            sleep(1500);
-            robot.leftDoorServo.setPosition(.75);
-
-        }else{
-            // Moves to position and sets up pixel placement
-            robot.autoForward(0.5, 1000);
-            robot.leftSlide.setTargetPosition(400);
-            robot.rightSlide.setTargetPosition(400);
-            robot.autoTurns(-0.5, 700);
+            robot.autoTurns(0.4, 1800);
 
             // Places the pixel 1
             sleep(500);
@@ -114,7 +116,26 @@ public class BlueFarAuto extends LinearOpMode {
             sleep(1500);
             robot.leftDoorServo.setPosition(.75);
 
+            robot.autoForward(0.3, 600);
+
+        }else{
+            robot.autoForward(0.3, 1700);
+            robot.leftSlide.setTargetPosition(400);
+            robot.rightSlide.setTargetPosition(400);
+            sleep(500);
+            robot.autoTurns(-0.4, 1100);
+            robot.autoForward(-0.2, 300);
+
+
+            // Places the pixel 1
+            sleep(500);
+            robot.leftDoorServo.setPosition(.4);
+            sleep(1500);
+            robot.leftDoorServo.setPosition(.75);
+            robot.autoForward(0.2, 500);
+
         }
+
 
         robot.stopDrive();
 

@@ -24,7 +24,7 @@ public class BlueElementScanner extends OpenCvPipeline {
     static final Scalar BLUE = new Scalar(0, 0, 255);
     static final Scalar GREEN = new Scalar(0, 255, 0);
 
-    static final int T = 120;
+    static final int T = 110;
     static final int H = 215;
     static final int S = 30;
 
@@ -35,11 +35,11 @@ public class BlueElementScanner extends OpenCvPipeline {
     /*
      * The core values which define the location and size of the sample regions
      */
-    static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0, 115);
-    static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(140, 95);
-    static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(243, 95);
-    static final int REGION_WIDTH = 65;
-    static final int REGION_HEIGHT = 80;
+    static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0, 75);
+    static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(130, 75);
+    static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(233, 95);
+    static final int REGION_WIDTH = 70;
+    static final int REGION_HEIGHT = 85;
 
     /*
      * Points which actually define the sample region rectangles, derived from above values
@@ -284,7 +284,7 @@ public class BlueElementScanner extends OpenCvPipeline {
          * to add some annotations to this buffer earlier up.
          */
 
-        return filter;
+        return input;
     }
 
     /*
