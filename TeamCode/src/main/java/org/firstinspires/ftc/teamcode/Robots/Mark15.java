@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum_Drive;
+import org.firstinspires.ftc.teamcode.util.Encoder;
 
 public class Mark15 extends Mecanum_Drive {
 
@@ -79,6 +80,8 @@ public class Mark15 extends Mecanum_Drive {
         lB.setDirection(DcMotorSimple.Direction.REVERSE);
         rF.setDirection(DcMotorSimple.Direction.REVERSE);
         lF.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
 
         droneLauncher.setDirection(DcMotorSimple.Direction.REVERSE);
 
