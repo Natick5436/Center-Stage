@@ -28,17 +28,23 @@ public class StraightTest extends LinearOpMode {
         Trajectory trajectory = drive.trajectoryBuilder(new Pose2d())
                 .forward(DISTANCE)
                 .build();
+        Trajectory trajectory2 = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(DISTANCE)
+                .build();
 
         waitForStart();
 
         if (isStopRequested()) return;
 
         drive.followTrajectory(trajectory);
+        drive.followTrajectory(trajectory2);
+
 
         Pose2d poseEstimate = drive.getPoseEstimate();
         telemetry.addData("finalX", poseEstimate.getX());
         telemetry.addData("finalY", poseEstimate.getY());
         telemetry.addData("finalHeading", poseEstimate.getHeading());
+//        telemetry.addData("encoder");
         telemetry.update();
 
         while (!isStopRequested() && opModeIsActive()) ;

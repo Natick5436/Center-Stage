@@ -33,7 +33,7 @@ public class TeleOp extends LinearOpMode {
         robot.leftSlide.setPower(0.9);
         robot.rightSlide.setPower(0.9);
 
-        robot.winchSetter.setPosition(.5);
+//        robot.winchSetter.setPosition(.5);
 
 
 
@@ -83,11 +83,11 @@ public class TeleOp extends LinearOpMode {
 
             /**CONTROLLER 2**/
             if(gamepad2.dpad_up){
-                robot.leftSlide.setTargetPosition(2100);
-                robot.rightSlide.setTargetPosition(2000);
+                robot.leftSlide.setTargetPosition(3150);
+                robot.rightSlide.setTargetPosition(3100);
             } else if (gamepad2.dpad_down) {
-                robot.leftSlide.setTargetPosition(0);
-                robot.rightSlide.setTargetPosition(0);
+                robot.leftSlide.setTargetPosition(95);
+                robot.rightSlide.setTargetPosition(95);
 
             }
 //
@@ -106,7 +106,7 @@ public class TeleOp extends LinearOpMode {
 
 
 
-                if(gamepad2.y){
+            if(gamepad2.y){
                 robot.intake.setPower(0.9);
             } else if (gamepad2.x) {
                 robot.intake.setPower(-0.9);
@@ -123,16 +123,16 @@ public class TeleOp extends LinearOpMode {
             }
             */
             if(gamepad2.left_bumper){
-                robot.leftDoorServo.setPosition(.4);
+                robot.leftDoorServo.setPosition(.75);
             } else
             {
-                robot.leftDoorServo.setPosition(.75);
+                robot.leftDoorServo.setPosition(.4);
             }
             if(gamepad2.right_bumper){
-                robot.rightDoorServo.setPosition(.75);
+                robot.rightDoorServo.setPosition(.4);
             } else
             {
-                robot.rightDoorServo.setPosition(.4);
+                robot.rightDoorServo.setPosition(.75);
             }
 
 
@@ -157,12 +157,13 @@ public class TeleOp extends LinearOpMode {
             if(gamepad1.b){
                 robot.pushDown.setPosition(-.2);
             }
-            if(gamepad1.x){
-                robot.winchSetter.setPosition(robot.winchSetter.getPosition() +0.005);
-            }
-            if (gamepad1.y)
+            if(gamepad1.x) {
+                robot.winchSetter.setPower(0.3);
+            }else if (gamepad1.y)
             {
-                robot.winchSetter.setPosition(robot.winchSetter.getPosition() -0.005);
+                robot.winchSetter.setPower(-0.3);
+            }else{
+                robot.winchSetter.setPower(0);
             }
 
 
@@ -172,7 +173,7 @@ public class TeleOp extends LinearOpMode {
 
             telemetry.addData("LeftServo", robot.leftDoorServo.getPosition());
             telemetry.addData("RightServo", robot.rightDoorServo.getPosition());
-            telemetry.addData("winchsetter", robot.winchSetter.getPosition());
+//            telemetry.addData("winchsetter", robot.winchSetter.getPosition());
 
 
             telemetry.update();
