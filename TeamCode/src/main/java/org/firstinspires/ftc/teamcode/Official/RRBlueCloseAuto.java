@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Official;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -8,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Robots.Mark15;
 import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BlueElementScanner;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -79,8 +82,31 @@ public class RRBlueCloseAuto extends LinearOpMode {
             finalAnalysis = elementPipeline;
         }
 
-        if(finalAnalysis == BlueElementScanner.ElementPosition.LEFT){
+        Trajectory toCenter = robot.trajectoryBuilder(new Pose2d())
+                .forward(42)
+                .build();
+        robot.followTrajectory(toCenter);
 
+        if(finalAnalysis == BlueElementScanner.ElementPosition.LEFT){
+            robot.turn(Math.toRadians(-155));
+
+            Trajectory back = robot.trajectoryBuilder(new Pose2d())
+                    .back(10)
+                    .build();
+            robot.followTrajectory(back);
+
+            robot.leftSlide.setTargetPosition(500);
+            robot.rightSlide.setTargetPosition(500);
+            sleep(1000);
+
+            robot.leftDoorServo.setPosition(0.75);
+            sleep(1000);
+            robot.leftDoorServo.setPosition(0.40);
+
+            sleep(1000);
+
+            robot.leftSlide.setTargetPosition(10);
+            robot.rightSlide.setTargetPosition(10);
 
         } else if (finalAnalysis == BlueElementScanner.ElementPosition.CENTER) {
 
