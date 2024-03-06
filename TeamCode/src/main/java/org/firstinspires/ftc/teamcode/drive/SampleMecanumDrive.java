@@ -19,12 +19,14 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAcceleration
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
@@ -80,8 +82,70 @@ public class SampleMecanumDrive extends MecanumDrive {
     private List<Integer> lastEncPositions = new ArrayList<>();
     private List<Integer> lastEncVels = new ArrayList<>();
 
+    public DcMotor leftSlide;
+    public String leftSlideInit = "leftSlide";
+
+    public DcMotor rightSlide;
+    public String rightSlideInit = "rightSlide";
+
+    public DcMotor intake;
+    public String intakeInit = "intake";
+
+    public CRServo droneLauncher;
+    public String droneLauncherInit = "droneLauncher";
+
+    public Servo pushDown;
+    public String pushDownInit = "pushDown";
+
+    public Servo leftDoorServo;
+    public String leftDoorServoInit = "leftDoorServo";
+
+    public Servo rightDoorServo;
+    public String rightDoorServoInit = "rightDoorServo";
+
+    public DcMotor winch;
+    public String winchInit = "winch";
+    public CRServo winchSetter;
+    public String winchSetterInit = "winchSetter";
+
     public SampleMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
+
+        leftSlide = hardwareMap.dcMotor.get(leftSlideInit);
+        rightSlide = hardwareMap.dcMotor.get(rightSlideInit);
+        winch = hardwareMap.dcMotor.get(winchInit);
+        intake = hardwareMap.dcMotor.get(intakeInit);
+
+        droneLauncher = hardwareMap.crservo.get(droneLauncherInit);
+        leftDoorServo = hardwareMap.servo.get(leftDoorServoInit);
+        rightDoorServo = hardwareMap.servo.get(rightDoorServoInit);
+        pushDown = hardwareMap.servo.get(pushDownInit);
+        winchSetter = hardwareMap.crservo.get(winchSetterInit);
+
+        leftSlide.setPower(0);
+        rightSlide.setPower(0);
+        intake.setPower(0);
+        winch.setPower(0);
+
+        leftSlide.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightSlide.setDirection(DcMotorSimple.Direction.REVERSE);
+
+//        lowerArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        lowerArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        lowerArm.setTargetPosition(0);
+//
+//        lowerArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        leftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftSlide.setTargetPosition(0);
+        leftSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        rightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightSlide.setTargetPosition(0);
+        rightSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
                 new Pose2d(0.5, 0.5, Math.toRadians(5.0)), 0.5);
