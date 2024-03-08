@@ -4,25 +4,23 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Robots.Mark15;
 import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.BlueElementScanner;
+import org.firstinspires.ftc.teamcode.ThreadsandInterfaces.RedElementScanner;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name="RRBlueCloseAuto",group="Autonomous")
-public class RRBlueCloseAuto extends LinearOpMode {
+@Autonomous(name="RRRedCloseAuto",group="Autonomous")
+public class RRRedCloseAuto extends LinearOpMode {
 
-    BlueElementScanner pipeline;
+    RedElementScanner pipeline;
     OpenCvWebcam phoneCam;
-    BlueElementScanner.ElementPosition elementPipeline;
-    BlueElementScanner.ElementPosition finalAnalysis;
+    RedElementScanner.ElementPosition elementPipeline;
+    RedElementScanner.ElementPosition finalAnalysis;
 
     SampleMecanumDrive robot;
     @Override
@@ -31,7 +29,7 @@ public class RRBlueCloseAuto extends LinearOpMode {
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new BlueElementScanner();
+        pipeline = new RedElementScanner();
         phoneCam.setPipeline(pipeline);
 
 
@@ -87,7 +85,7 @@ public class RRBlueCloseAuto extends LinearOpMode {
                 .build();
         robot.followTrajectory(toCenter);
 
-        if(finalAnalysis == BlueElementScanner.ElementPosition.LEFT){
+        if(finalAnalysis == RedElementScanner.ElementPosition.LEFT){
             robot.turn(Math.toRadians(180));
 
             Trajectory back = robot.trajectoryBuilder(new Pose2d())
@@ -105,9 +103,16 @@ public class RRBlueCloseAuto extends LinearOpMode {
 
             sleep(1000);
 
-            robot.leftSlide.setTargetPosition(10);
-            robot.rightSlide.setTargetPosition(10);
-        } else if (finalAnalysis == BlueElementScanner.ElementPosition.CENTER) {
+            Trajectory end = robot.trajectoryBuilder(new Pose2d())
+                    .forward(1)
+                    .build();
+            robot.followTrajectory(back);
+
+            robot.leftSlide.setTargetPosition(0);
+            robot.rightSlide.setTargetPosition(0);
+
+            robot.followTrajectory(end);
+        } else if (finalAnalysis == RedElementScanner.ElementPosition.CENTER) {
             robot.turn(Math.toRadians(290));
 
             Trajectory back = robot.trajectoryBuilder(new Pose2d())
@@ -126,11 +131,21 @@ public class RRBlueCloseAuto extends LinearOpMode {
             //robot.setMotorPowers(0, 0, 0, 0);
 
             sleep(1000);
+
+            Trajectory end = robot.trajectoryBuilder(new Pose2d())
+                    .forward(1)
+                    .build();
+            robot.followTrajectory(back);
+
+            robot.leftSlide.setTargetPosition(0);
+            robot.rightSlide.setTargetPosition(0);
+
+            robot.followTrajectory(end);
         }else{
             robot.turn(Math.toRadians(-155));
 
             Trajectory back = robot.trajectoryBuilder(new Pose2d())
-                    .back(13)
+                    .back(5)
                     .build();
             robot.followTrajectory(back);
 
@@ -144,8 +159,10 @@ public class RRBlueCloseAuto extends LinearOpMode {
 
             sleep(1000);
 
-            robot.leftSlide.setTargetPosition(10);
-            robot.rightSlide.setTargetPosition(10);
+            robot.leftSlide.setTargetPosition(0);
+            robot.rightSlide.setTargetPosition(0);
+
+            robot.followTrajectory(back);
         }
 
     }
